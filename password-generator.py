@@ -1,5 +1,7 @@
 import os
 
+import sys
+
 import string
 
 import random
@@ -124,7 +126,7 @@ def running_of_script():
      
      elif user_prompt == "c": # closes application
           
-          exit()
+          sys.exit()
 
      elif user_prompt == "e": # encrypts text file with symmetric crytographic key
           
