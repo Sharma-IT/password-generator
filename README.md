@@ -23,7 +23,7 @@ Memory: 500 MB RAM
 
 Storage: 1 GB
 
-To run this application on a **Linux OS**, you can use a program such as Wine (winehq.org) which can run the excecutable file on Linux OS by translating Windows API calls to calls a Linux kernel can understand.
+To run this application on a **Linux OS**, you can use a program such as Wine (winehq.org) which can run the excecutable file on the Linux OS by translating Windows API calls to calls a Linux kernel can understand.
 
 ## Getting Started
 
