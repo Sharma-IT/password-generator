@@ -4,7 +4,7 @@ For those who still don't use a password manager; a powerful, secure and simple 
 
 ## Features
 - Uses a console that acts as the UI: for a simplified end user experience, a fully-adjustable window size, and an increase in performance compared to a GUI
-- Simple and fast installation process that doesn't require admin privileges
+- Simple and esy to use application file that doesn't require admin privileges
 - Automatically stores generated passwords into text file
 - Can generate a symmetric cryptographic key to encrypt and decrypt text file
 - Can run offline and makes no outgoing or incoming network connections
