@@ -4,7 +4,7 @@ For those who still don't use a password manager; a powerful, secure and simple 
 
 ## Features
 - Uses a console that acts as the UI: for a simplified end user experience, a fully-adjustable window size, and an increase in performance compared to a GUI
-- Simple and esy to use application file that doesn't require admin privileges
+- Simple and easy to use application file that doesn't require admin privileges
 - Automatically stores generated passwords into text file
 - Can generate a symmetric cryptographic key to encrypt and decrypt text file
 - Can run offline and makes no outgoing or incoming network connections
@@ -43,7 +43,7 @@ git clone https://github.com/sharma-it/password-generator.git
 - Generated passwords will be stored into a text file named 'password list.txt' and the generated cryptographic key named 'password list key.key' can be found in the file path of the application. **Do not rename either files and keep both of them in the file path of the application**
 - As you generate a password the text file will open up showing you what the generated password looks like. If you have Notepad set as your default program for opening .txt files you have to close the text file if you want to continue to use the application. Using another program or Windows 10 app such as 'Notepads App' can allow for the application to run without having to close the text file
 - In order to encrypt and decrypt the text file you need to generate a cryptographic key which can be done with the command 'k'.
-- To cancel the generation of a password, use 0. This will generate no password and will open the text file.
+- To cancel the generation of a password, use 0. This will generate no password but will open the text file.
 
 Below is a key for the list of in-built commands that you or whoever as the end user can use to perform certain actions in this application.
 
