@@ -11,7 +11,7 @@ For those who still don't use a password manager; a powerful, secure and simple 
 - Virtually no limit on generated passwords lengths
 - Only 8.23 mb in size and uses an average of 20 mb of RAM (when generating passwords less than the character length of 1 million)
 
-## System Requirements
+## Minimum System Requirements
 
 **NOTE:** Generating passwords less than the character length of 1 million will be done instantly or within a few seconds and will only consume an average of 15 - 20 mb of RAM. Generating passwords over the character length of 1 million can take over a minute to generate and can use up more than 100 mb of RAM.
 
@@ -22,8 +22,6 @@ Operating System: Microsoft Windows XP
 Memory: 500 MB RAM
 
 Storage: 1 GB
-
-To run this application on a **Linux OS**, you can use a program such as Wine (winehq.org) which can run the excecutable file on the Linux OS by translating Windows API calls to calls a Linux kernel can understand.
 
 ## Getting Started
 
