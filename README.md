@@ -39,30 +39,24 @@ git clone https://github.com/sharma-it/password-generator.git
 **NOTE:**
 
 - Generated passwords will be stored into a text file named 'password list.txt' and the generated cryptographic key named 'password list key.key' can be found in the file path of the application. **Do not rename either files and keep both of them in the file path of the application**
-- As you generate a password the text file will open up showing you what the generated password looks like. If you have Notepad set as your default program for opening .txt files you have to close the text file if you want to continue to use the application. Using another program or Windows 10 app such as 'Notepads App' can allow for the application to run without having to close the text file
-- In order to encrypt and decrypt the text file you need to generate a cryptographic key which can be done with the command 'k'.
-- To cancel the generation of a password, use 0. This will generate no password but will open the text file.
+- If you open the text file through the application an if you have Notepad set as your default program for opening .txt files you will have to close the .txt file window if you want to continue to use the application. Using another program or Windows 10 app such as 'Notepads App' can allow the application to run with the .txt file still opened
+- In order to encrypt and decrypt the text file you need to generate a cryptographic key which can be done with the commands '-g k' or 'gen k'
 
-Below is a key for the list of in-built commands that you or whoever as the end user can use to perform certain actions in this application.
+Below is a key for the list of in-built commands and arguments that can be used to perform certain actions in this application.
 
-**User Commands Key:**
+**Commands/Arguments Key:**
 
-| User Command Type | Input Type | Parse Types |
+| Command/Arugment | Input Type | Parse Output |
 | ----------------- | ---------- | ----------- |
-| p |	string | Generates password. |
-| k |	string | Generates cryptographic key. |
-| w |	string | Wipes text file. |
+| -g p, -gen p |	string | Generates password. |
+| -g k, -gen k |	string | Generates cryptographic key. |
+| -w t, -wipe t |	string | Wipes text file. |
+| -w k, -wipe k |	string | Wipes cryptographic key. |
 | o |	string | Opens text file. |
 | e |	string | Encrypts text file. |
 | d |	string | Decrypts text file. |
-| h |	string | Lists all in-built commands. |
-| c |	string | Closes program. |
-
-## FAQ
-
-Q.1: Why does Notepad force the application to stop after the text file is opened through it?
-
-A: Simply due to how Notepad is built, Notepad can't show an appended change done by an external script or program to an opened .txt file in real-time, thus the .txt file has to be closed before being able to perform another action in the application.
+| h, help |	string | Lists all in-built commands and arguments. |
+| exit |	string | Exits application. |
 
 ## Contributing
 
