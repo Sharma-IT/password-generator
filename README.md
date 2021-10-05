@@ -46,7 +46,7 @@ Below is a key for the list of in-built commands and arguments that can be used 
 
 **Commands/Arguments Key:**
 
-| Command/Arugment | Input Type | Parse Output |
+| Command/Arugment | Input Type | Parse Outcome |
 | ----------------- | ---------- | ----------- |
 | -g p, -gen p |	string | Generates password. |
 | -g k, -gen k |	string | Generates cryptographic key. |
