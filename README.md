@@ -3,7 +3,7 @@
 For those who still don't use a password manager; a powerful, secure and simple open-source password generator.
 
 ## Features
-- Uses a console that acts as the UI: for a simplified end user experience and an increase in performance compared to a GUI
+- Console-based application, simple UI for technical users, and higher performing over a GUI alternative
 - Simple and easy to use application file that doesn't require admin privileges
 - Automatically stores generated passwords into text file
 - Can generate a symmetric cryptographic key to encrypt and decrypt text file
