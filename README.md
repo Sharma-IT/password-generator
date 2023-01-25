@@ -18,6 +18,8 @@ For those who still don't use a password manager but want to use stronger passwo
 
 - Can run offline and makes no outgoing or incoming network connections.
 
+- Can clear the entire text file
+
 - Virtually no limit on generated passwords lengths.
 
 - Only 8.23 mb in size and uses an average of 20 mb of RAM (when generating passwords with a character length less than 1 million).
