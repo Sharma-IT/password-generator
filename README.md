@@ -3,23 +3,24 @@
 For those who still don't use a password manager but want to use stronger passwords; a powerful, secure and simple open-source password generator.
 
 ## Features
-- Console-based script; easy-to-use UI for technical users
 
-- Performs faster than GUI-based alternatives
+- Console-based script; easy-to-use UI for technical users.
 
-- Usage does not require admin privileges
+- Performs faster than GUI-based alternatives.
 
-- Automatically logs generated passwords into a text file
+- Usage does not require admin privileges.
 
-- Can generate a symmetric cryptographic key to encrypt and decrypt the text file
+- Automatically logs generated passwords into a text file.
 
-- Can open the text file using the operating system's default text editor
+- Can generate a symmetric cryptographic key to encrypt and decrypt the text file.
 
-- Can run offline and makes no outgoing or incoming network connections
+- Can open the text file using the operating system's default text editor.
 
-- Virtually no limit on generated passwords lengths
+- Can run offline and makes no outgoing or incoming network connections.
 
-- Only 8.23 mb in size and uses an average of 20 mb of RAM (when generating passwords with a character length less than 1 million)
+- Virtually no limit on generated passwords lengths.
+
+- Only 8.23 mb in size and uses an average of 20 mb of RAM (when generating passwords with a character length less than 1 million).
 
 ## Minimum System Requirements
 
