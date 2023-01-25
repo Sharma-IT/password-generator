@@ -16,23 +16,23 @@ For those who still don't use a password manager but want to use stronger passwo
 
 - Can open the text file using the operating system's default text editor.
 
+- Can clear the entire text file.
+
 - Can run offline and makes no outgoing or incoming network connections.
 
-- Can clear the entire text file
+- Virtually has no limit with the length of generating a password.
 
-- Virtually no limit on generated passwords lengths.
-
-- Only 8.23 mb in size and uses an average of 20 mb of RAM (when generating passwords with a character length less than 1 million).
+- Only 8.23 MBs in size and uses an average of 20 MBs of RAM (when generating passwords with a character length less than 7 digits).
 
 ## Minimum System Requirements
 
-**NOTE:** Generating passwords less than the character length of 1 million will be done instantly or within a few seconds and will only consume an average of 15 - 20 mb of RAM. Generating passwords over the character length of 1 million can take over a minute to generate and can use up more than 100 mb of RAM.
+**NOTE:** Generating passwords less than the character length of 7 digits will be done instantly or within a few seconds and will only consume an average of 15 - 20 MBs of RAM. Generating passwords over the character length of 7 digits can take over a minute to generate and can use up more than 100 MBs of RAM.
 
 Processor (CPU): Intel Core Solo
 
 Operating System: Microsoft Windows XP
 
-Memory: 500 MB RAM
+Memory: 500 MBs RAM
 
 Storage: 1 GB
 
