@@ -3,13 +3,14 @@
 For those who still don't use a password manager; a powerful, secure and simple open-source password generator.
 
 ## Features
-- Console-based application, simple UI for technical users, and higher performing over a GUI alternative
-- Simple and easy to use application file that doesn't require admin privileges
-- Automatically stores generated passwords into text file
+- Console-based script; easy-to-use UI for technical users
+- Performs higher than GUI-based alternatives
+- Usage does not require admin privileges
+- Automatically stores generated passwords into a text file
 - Can generate a symmetric cryptographic key to encrypt and decrypt text file
 - Can run offline and makes no outgoing or incoming network connections
 - Virtually no limit on generated passwords lengths
-- Only 8.23 mb in size and uses an average of 20 mb of RAM (when generating passwords less than the character length of 1 million)
+- Only 8.23 mb in size and uses an average of 20 mb of RAM (when generating passwords with a character length less than 1 million)
 
 ## Minimum System Requirements
 
@@ -25,9 +26,9 @@ Storage: 1 GB
 
 ## Getting Started
 
-To run or edit the .py file, use the package manager pip to install cryptography:
+To run or edit the .py file, use the package manager pip(3) to install cryptography:
 ```sh
-pip3 install cryptography
+(sudo) pip(3) install cryptography
 ```
 To clone the repo:
 ```sh
