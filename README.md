@@ -1,6 +1,6 @@
 ## Password Generator
 
-For those who still don't use a password manager; a powerful, secure and simple open-source password generator.
+For those who still don't use a password manager but want to use stronger passwords; a powerful, secure and simple open-source password generator.
 
 ## Features
 - Console-based script; easy-to-use UI for technical users
@@ -76,8 +76,8 @@ Pull requests are welcomed. For major changes, please open an issue first to dis
 
 ## Contact
 
-Shubham Sharma - [My LinkedIn](https://www.linkedin.com/in/sharma-it/) - shubhamsharma.emails@gmail.com
+Shubham Sharma - [My LinkedIn](https://www.linkedin.com/in/sharma-it/) - shubhamsharma.emails@gmail.com.
 
 ## License
 
-This project is licensed under the GPL 3.0 License - see the [LICENSE](LICENCE) file for details
+This project is licensed under the GPL 3.0 License - see the [LICENSE](LICENCE) file for details.
