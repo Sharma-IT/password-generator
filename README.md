@@ -4,7 +4,7 @@ For those who still don't use a password manager; a powerful, secure and simple 
 
 ## Features
 - Console-based script; easy-to-use UI for technical users
-- Performs higher than GUI-based alternatives
+- Performs faster than GUI-based alternatives
 - Usage does not require admin privileges
 - Automatically logs generated passwords into a text file
 - Can generate a symmetric cryptographic key to encrypt and decrypt the text file
