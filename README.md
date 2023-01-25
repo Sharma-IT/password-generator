@@ -4,13 +4,21 @@ For those who still don't use a password manager; a powerful, secure and simple 
 
 ## Features
 - Console-based script; easy-to-use UI for technical users
+
 - Performs faster than GUI-based alternatives
+
 - Usage does not require admin privileges
+
 - Automatically logs generated passwords into a text file
+
 - Can generate a symmetric cryptographic key to encrypt and decrypt the text file
+
 - Can open the text file using the operating system's default text editor
+
 - Can run offline and makes no outgoing or incoming network connections
+
 - Virtually no limit on generated passwords lengths
+
 - Only 8.23 mb in size and uses an average of 20 mb of RAM (when generating passwords with a character length less than 1 million)
 
 ## Minimum System Requirements
@@ -41,7 +49,9 @@ git clone https://github.com/sharma-it/password-generator.git
 **NOTE:**
 
 - Generated passwords are stored into a text file named 'password list.txt' and the generated cryptographic key named 'password list key.key' can be found in the file path of the script. **Do not rename either files and keep both of them in the file path of the application.**
+
 - If you open the text file through the script and if you have 'Notepad' set as your default program for opening '.txt' files, you will have to close the '.txt' file's window, if you want to continue to use the script. Using another program or a Windows 10 app such as 'Notepads App' can allow the application to run without needing to close the .txt file's window.
+
 - In order to encrypt and decrypt the text file, you need to generate a cryptographic key which can be done with the commands '-g k' or 'gen k'.
 
 Below is a key for the list of in-built commands and arguments that can be used to make the script perform certain actions.
