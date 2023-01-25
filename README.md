@@ -64,7 +64,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Contact
 
-Shubham Sharma - [My LinkedIn](https://www.linkedin.com/in/ssjuniorit/) - shubhamsharma.emails@gmail.com
+Shubham Sharma - [My LinkedIn](https://www.linkedin.com/in/sharma-it/) - shubhamsharma.emails@gmail.com
 
 ## License
 
