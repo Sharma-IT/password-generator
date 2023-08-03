@@ -4,37 +4,47 @@ For those who still don't use a password manager but want to use stronger passwo
 
 ## Features
 
-- Console-based script; easy-to-use UI for technical users.
+- Lightweight and user-friendly CLI
 
-- Performs faster than GUI-based alternatives.
+- Performs faster than GUI-based alternatives
 
-- Usage does not require admin privileges.
+- Cross OS-compatible (Windows/Linux/macOS)
 
-- Automatically logs generated passwords into a text file.
+- User can specify password length
 
-- Can generate a symmetric cryptographic key to encrypt and decrypt the text file.
+- Uses 'secret' module for cryptographically securer password generation
 
-- Can open the text file using the operating system's default text editor.
+- Does not require admin privileges
 
-- Can clear the entire text file.
+- Automatically logs generated passwords into a text file
 
-- Can run offline and makes no outgoing or incoming network connections.
+- Generates symmetric cryptographic key to encrypt and decrypt text file
 
-- Virtually has no limit with the length of generating a password.
+- Opens text file using the operating system's default text editor
 
-- Only 8.23 MBs in size and uses an average of 20 MBs of RAM (when generating passwords with a character length less than 7 digits).
+- Clears the text file
+
+- Runs offline and makes no outgoing or incoming network connections
+
+- Executable is only 8 MB in size
+
+- Uses an average of 20 MB of RAM (and only for a second) when generating passwords with a character length less than or equal to 16
+
+- Source code contains plenty of docstrings, is easily readable and editable
 
 ## Minimum System Requirements
 
-**NOTE:** Generating passwords less than the character length of 7 digits will be done instantly or within a few seconds and will only consume an average of 15 - 20 MBs of RAM. Generating passwords over the character length of 7 digits can take over a minute to generate and can use up more than 100 MBs of RAM.
+**NOTE:** Generating passwords less than or equal to the character length of 16 will be done instantly or within a few seconds and will only consume an average of 15 to 20 MB of RAM. Generating passwords over the character length of 16 digits can take over a minute to generate and can use up more than 100 MBs of RAM, though this largerly depends on your PC's specs. For e.g. testing on the M1 chip showed that passwords with character lengths as long as 99999 could be generated under a second.
 
 Processor (CPU): Intel Core Solo
 
-Operating System: Microsoft Windows XP
+Windows Operating System: Microsoft Windows XP
 
-Memory: 500 MBs RAM
+Linux Operating System: Ubuntu Oneiric Ocelot
 
-Storage: 1 GB
+Memory: 500 MB RAM
+
+Storage: 1 GB (8 MB excl. neccessary OS files)
 
 ## Getting Started
 
