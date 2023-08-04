@@ -40,6 +40,8 @@ Processor (CPU): Intel Core Solo
 
 Windows Operating System: Microsoft Windows XP
 
+macOS Operating System: Mac OS X
+
 Linux Operating System: Ubuntu Oneiric Ocelot
 
 Memory: 500 MB RAM
@@ -61,13 +63,13 @@ git clone https://github.com/sharma-it/password-generator.git
 
 **NOTE:**
 
-- Generated passwords are stored into a text file named 'password list.txt' and the generated cryptographic key named 'password list key.key' can be found in the file path of the script. **Do not rename either files and keep both of them in the file path of the application.**
+- Generated passwords are stored into a text file named 'password list.txt' and the generated cryptographic key is named 'password list key.key'. Both can be found in the same file path where the application sits . **Do not rename either files and always keep both of them in the same file path of the application.**
 
-- If you open the text file through the script and if you have 'Notepad' set as your default program for opening '.txt' files, you will have to close the '.txt' file's window, if you want to continue to use the script. Using another program or a Windows 10 app such as 'Notepads App' can allow the application to run without needing to close the .txt file's window.
+- Opening the text file through the application exhibits different behabiours from OS to OS. On MacOS and Linux, the text file can remain open while the applicaiton is running, however you should still manually close the text file before continuing to use the Password Generator. Whereas on Windows, after opening the text file through the application, you cannot continue to use the Password Generator without first closing the text file, that's if you have 'Notepad' set as your default text editor. Using another program or a Windows 10/11 app such as 'Notepads App' can allow the application to run without needing to close the text file, however you should still close the text file before continuing to use the Password Generator.
 
 - In order to encrypt and decrypt the text file, you need to generate a cryptographic key which can be done with the commands '-g k' or 'gen k'.
 
-Below is a key for the list of in-built commands and arguments that can be used to make the script perform certain actions.
+Below is a key for the list of in-built commands and arguments that can be used to make the application perform certain actions.
 
 **Commands/Arguments Key:**
 
