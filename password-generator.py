@@ -323,19 +323,21 @@ class Console:
                     BOLD + GREEN +
                     "\n[+] Text file successfully opened" +
                     NORMAL + BOLD +
-                    '\n\n[>] Close the Notepad window to continue using the Password Generator')
+                    '\n\n[>] Close the Notepad window or the text editor you are using to continue using the Password Generator')
             elif current_os == "Darwin":
                 subprocess.call(["open", self.config['passwords_file']])
                 print(
                     BOLD + GREEN +
-                    "\n[+] Text file successfully opened")
+                    "\n[+] Text file successfully opened" +
+                    NORMAL + BOLD +
+                    '\n\n[>] Close the window of TextEdit or the text editor you are using to continue using the Password Generator')
             elif current_os == "Linux":
                 subprocess.call(["xdg-open", self.config['passwords_file']])
                 print(
                     BOLD + GREEN +
                     "\n[+] Text file successfully opened" +
                     NORMAL + BOLD +
-                    '\n\n[>] Close the window of the text editor to continue using the Password Generator')
+                    '\n\n[>] Close the window of Gedit or the text editor you are using to continue using the Password Generator')
         else:
             logging.error("Text file does not exist")
             raise ValueError("Text file does not exist")
