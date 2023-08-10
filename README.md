@@ -12,7 +12,7 @@ A Lightweight and easy-to-use CLI Password Generator. This open-source password 
 
 - User can specify password length
 
-- Uses 'secret' module for cryptographically securer password generation
+- Uses Python's 'secret' module for cryptographically secure password generation
 
 - Does not require admin privileges
 
