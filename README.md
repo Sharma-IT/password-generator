@@ -8,7 +8,7 @@ A Lightweight and easy-to-use CLI Password Generator. This open-source password 
 
 - Performs faster than GUI-based alternatives
 
-- Cross OS-compatible (Windows/Linux/macOS)
+- Native-OS executable file avaliable for Windows, Linux and macOS
 
 - User can specify password length
 
