@@ -57,6 +57,7 @@ To run or edit the .py file, use the package manager pip(3) to install cryptogra
 To clone the repo:
 ```sh
 git clone https://github.com/sharma-it/password-generator.git
+cd password-generator
 ```
 
 ## Usage
