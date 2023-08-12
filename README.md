@@ -50,13 +50,16 @@ Storage: 1 GB (8 MB excl. neccessary OS files)
 
 ## Getting Started
 
-To run or edit the .py file, use the package manager pip(3) to install cryptography:
+To edit the .py file, use the package manager pip(3) to install cryptography:
 ```sh
 (sudo) pip(3) install cryptography
 ```
 To clone the repo:
 ```sh
 git clone https://github.com/sharma-it/password-generator.git
+```
+To change to the project directory:
+```sh
 cd password-generator
 ```
 
