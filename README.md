@@ -51,21 +51,19 @@ Storage: 1 GB (8 MB excl. neccessary OS files)
 ## Getting Started
 
 To edit the .py file, use the package manager pip(3) to install cryptography:
-```sh
+```
 (sudo) pip(3) install cryptography
 ```
 To clone the repo:
-```sh
+```
 git clone https://github.com/sharma-it/password-generator.git
 ```
 To change to the project directory:
-```sh
+```
 cd password-generator
 ```
 
 ## Usage
-
-**NOTE:**
 
 - Generated passwords are stored into a text file named 'password list.txt' and the generated cryptographic key is named 'password list key.key'. Both can be found in the same file path where the application sits. **Do not rename either files and always keep both of them in the same file path of the application.**
 
@@ -99,4 +97,4 @@ Shubham Sharma - [My LinkedIn](https://www.linkedin.com/in/sharma-it/) - shubham
 
 ## License
 
-This project is licensed under the GPL 3.0 License - see the [LICENSE](LICENCE) file for details.
+This project is licensed under the GPL 3.0 License - see the [LICENSE](LICENSE) file for details.
