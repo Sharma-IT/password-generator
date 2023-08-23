@@ -135,11 +135,10 @@ class FileHelper:
             FileNotFoundError: If the file does not exist.
 
         """
-        if self.file_exists(filename):
-            with open(filename, 'rb') as file:
-                return file.read()
-        else:
+        if not self.file_exists(filename):
             raise FileNotFoundError(f"File '{filename}' does not exist.")
+        with open(filename, 'rb') as file:
+            return file.read()
 
 class Console:
     """
@@ -180,7 +179,12 @@ class Console:
 
         """
         if self.show_banner:
-            print(BANNER + f'\n[>] Created by : Shubham Sharma' + f'\n[>] Version    : {VERSION}' + BOLD + "\n\n[>] Input 'h' or 'help' to view a list of in-built commands and necessary arguments")
+            print(
+                f'{BANNER}\n[>] Created by : Shubham Sharma'
+                + f'\n[>] Version    : {VERSION}'
+                + BOLD
+                + "\n\n[>] Input 'h' or 'help' to view a list of in-built commands and necessary arguments"
+            )
             self.show_banner = False
 
     def run(self):
@@ -192,10 +196,7 @@ class Console:
             user_input = self.get_input()
             try:
                 self.process_user_input(user_input)
-            except ValueError as e:
-                print(BOLD + RED + f"\n[x] ERROR: {str(e)}" + NORMAL)
-                logging.error(str(e))
-            except FileNotFoundError as e:
+            except (ValueError, FileNotFoundError) as e:
                 print(BOLD + RED + f"\n[x] ERROR: {str(e)}" + NORMAL)
                 logging.error(str(e))
             except Exception as e:
@@ -263,7 +264,9 @@ class Console:
                     print(BOLD + RED + '\n[x] ERROR: Invalid password length. Please enter a number larger than or equal to 8' + NORMAL)
                     continue
             except ValueError:
-                logging.error("'" + user_input_length + "'" + ' is not a valid numerical value. Please input a valid numerical value')
+                logging.error(
+                    f"'{user_input_length}' is not a valid numerical value. Please input a valid numerical value"
+                )
                 print(BOLD + RED + '\n[-] ERROR: ' + "'" + user_input_length + "'" + ' is not a valid numerical value. Please input a valid numerical value' + NORMAL)
                 continue
             else:
