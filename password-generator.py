@@ -81,7 +81,6 @@ class FileHelper:
         remove_file(filename): Removes a file.
         write_to_file(filename, content): Writes content to a file.
         read_from_file(filename): Reads content from a file.
-
     """
     def __init__(self, config):
         self.config = config
@@ -95,7 +94,6 @@ class FileHelper:
 
         Returns:
             bool: True if the file exists, False otherwise.
-
         """
         return os.path.exists(filename)
 
@@ -105,7 +103,6 @@ class FileHelper:
 
         Args:
             filename (str): The name of the file.
-
         """
         os.remove(filename)
 
@@ -116,7 +113,6 @@ class FileHelper:
         Args:
             filename (str): The name of the file.
             content (str): The content to be written to the file.
-
         """
         with open(filename, 'a') as file:
             file.write(content)
@@ -133,7 +129,6 @@ class FileHelper:
 
         Raises:
             FileNotFoundError: If the file does not exist.
-
         """
         if not self.file_exists(filename):
             raise FileNotFoundError(f"File '{filename}' does not exist.")
@@ -165,7 +160,6 @@ class Console:
         encrypt_text_file(): Encrypts the text file.
         decrypt_text_file(): Decrypts the text file.
         commands_and_arguments(): Displays a list of in-built commands and necessary arguments.
-
     """
     def __init__(self, file_helper, config):
         self.file_helper = file_helper
@@ -176,7 +170,11 @@ class Console:
     def display_banner(self):
         """
         Displays the application banner.
-
+        
+        Description:
+            This method prints the application banner to the console if the 'show_banner'
+            attribute is set to True. The banner includes information about the creator (Shubham Sharma),
+            version, and a message to view a list of in-built commands and necessary arguments.
         """
         if self.show_banner:
             print(
@@ -191,6 +189,10 @@ class Console:
         """
         Runs the console interface.
 
+        Description:
+            This method continuously prompts the user for input, processes the input,
+            and handles any exceptions that may occur during the process. It runs in an
+            infinite loop until the user chooses to exit the application.        
         """
         while True:
             user_input = self.get_input()
@@ -209,7 +211,9 @@ class Console:
 
         Returns:
             str: The user input.
-
+            
+        Description:
+            This method prompts the user for input and returns the input as a string.
         """
         return input(NORMAL + '\n' + get_cwd + '> ')
 
@@ -222,7 +226,13 @@ class Console:
 
         Raises:
             ValueError: If the user input is invalid.
-
+            
+        Description:
+            This method takes the user input and performs the corresponding action based
+            on the input. It calls the appropriate methods to generate a password, generate
+            a key, wipe the text file, open the text file, encrypt the text file, decrypt
+            the text file, display the list of commands and arguments, or exit the application.
+            If the user input is not recognised, it raises a ValueError.
         """
         if user_input in ['-g p', '--gen p']:
             self.generate_password()
@@ -251,7 +261,13 @@ class Console:
     def generate_password(self):
         """
         Generates a random password.
-
+        
+        Description:
+            This method prompts the user to enter the desired length of the password.
+            It generates a random password of the specified length using a combination
+            of letters, digits, and punctuation. The generated password is then written
+            to the passwords text file specified in the configuration. If the user cancels
+            the password generation, the method returns without generating a password.
         """
         while True:
             try:
@@ -279,7 +295,11 @@ class Console:
     def generate_key(self):
         """
         Generates a symmetric cryptographic key.
-
+        
+        Description:
+            This method generates a symmetric cryptographic key using the Fernet library.
+            If the key file specified in the configuration already exists, it raises a ValueError.
+            Otherwise, it generates a new key, writes it to the key file, and prints a success message.
         """
         if self.file_helper.file_exists(self.config['key_file']):
             logging.error("Key already exists")
@@ -293,7 +313,11 @@ class Console:
     def wipe_key(self):
         """
         Deletes the symmetric cryptographic key.
-
+        
+        Description:
+            This method deletes the symmetric cryptographic key file specified in the configuration.
+            If the key file does not exist, it raises a ValueError. Otherwise, it deletes the file
+            and prints a success message.
         """
         if self.file_helper.file_exists(self.config['key_file']):
             self.file_helper.remove_file(self.config['key_file'])
@@ -305,7 +329,11 @@ class Console:
     def wipe_text_file(self):
         """
         Wipes the text file.
-
+        
+        Description:
+            This method deletes the text file specified in the configuration.
+            If the text file does not exist, it raises a ValueError. Otherwise,
+            it deletes the file and prints a success message.
         """
         if self.file_helper.file_exists(self.config['passwords_file']):
             self.file_helper.remove_file(self.config['passwords_file'])
@@ -317,7 +345,13 @@ class Console:
     def open_text_file(self):
         """
         Opens the text file.
-
+        
+        Description:
+            This method opens the text file specified in the configuration using the
+            appropriate command based on the operating system. If the text file does
+            not exist, it raises a ValueError. After opening the file, it prints a
+            success message with instructions to close the file to continue using
+            the Password Generator.
         """
         if self.file_helper.file_exists(self.config['passwords_file']):
             if current_os == "Windows":
@@ -348,6 +382,12 @@ class Console:
     def encrypt_text_file(self):
         """
         Encrypts the text file.
+        
+        Description:
+            This method encrypts the text file specified in the configuration using
+            the symmetric cryptographic key. If the key or text file is missing, it
+            raises a ValueError. After encryption, it calls the 'write_encrypted_text_file'
+            method to write the encrypted content to the text file and print a success message.
         """
         if self.file_helper.file_exists(self.config['key_file']) and self.file_helper.file_exists(self.config['passwords_file']):
             key = self.file_helper.read_from_file(self.config['key_file'])
@@ -358,10 +398,9 @@ class Console:
             original_text_file = self.file_helper.read_from_file(self.config['passwords_file'])
             original_text_file_bytes = original_text_file # Remove the encode() method call
             encrypted = fernet.encrypt(original_text_file_bytes)
-            encrypted_str = encrypted.decode()
-            with open(self.config['passwords_file'], 'w') as file:
-                file.write(encrypted_str)
-            print(BOLD + GREEN + '\n[+] Text file has successfully been encrypted')
+            self.write_encrypted_text_file(
+                encrypted, '\n[+] Text file has successfully been encrypted'
+            )
         else:
             logging.error("Key and/or text file is missing")
             raise ValueError("Key and/or text file is missing")
@@ -369,6 +408,12 @@ class Console:
     def decrypt_text_file(self):
         """
         Decrypts the text file.
+        
+        Description:
+            This method decrypts the text file specified in the configuration using
+            the symmetric cryptographic key. If the key or text file is missing, it
+            raises a ValueError. After decryption, it calls the 'write_encrypted_text_file'
+            method to write the decrypted content to the text file and print a success message.
         """
         if self.file_helper.file_exists(self.config['key_file']) and self.file_helper.file_exists(self.config['passwords_file']):
             key = self.file_helper.read_from_file(self.config['key_file'])
@@ -378,18 +423,35 @@ class Console:
             fernet = Fernet(key)
             encrypted = self.file_helper.read_from_file(self.config['passwords_file'])
             decrypted = fernet.decrypt(encrypted)
-            decrypted_str = decrypted.decode()
-            with open(self.config['passwords_file'], 'w') as file:
-                file.write(decrypted_str)
-            print(BOLD + GREEN + '\n[+] Text file has been successfully decrypted')
+            self.write_encrypted_text_file(
+                decrypted, '\n[+] Text file has been successfully decrypted'
+            )
         else:
             logging.error("Key and/or text file is missing")
             raise ValueError("Key and/or text file is missing")
 
+    def write_encrypted_text_file(self, arg0, arg1):
+        """
+        Writes the encrypted content to the text file and prints a success message.
+
+        Description:
+            This method takes the encrypted content as a byte string and writes it to the text file specified in the
+            configuration. It then prints a success message to indicate that the text file has been successfully encrypted
+            or decrypted.
+        """
+        encrypted_str = arg0.decode()
+        with open(self.config['passwords_file'], 'w') as file:
+            file.write(encrypted_str)
+        print(BOLD + GREEN + arg1)
+
     def commands_and_arguments(self):
         """
         Displays a list of in-built commands and necessary arguments.
-
+        
+        Description:
+            This method prints a list of in-built commands and their necessary arguments
+            to the console. It provides users with information on how to use the application
+            and its various functionalities.
         """
         print(BOLD + HELP_TEXT)
 
@@ -400,7 +462,6 @@ class Main:
     Methods:
         validate_config(): Validates the configuration settings.
         run(): Runs the application.
-
     """
     def __init__(self):
         self.config = {
@@ -417,7 +478,6 @@ class Main:
 
         Raises:
             ValueError: If any configuration value is not a string.
-
         """
         for key, value in self.config.items():
             if not isinstance(value, str):
@@ -427,7 +487,11 @@ class Main:
     def run(self):
         """
         Runs the application.
-
+        
+        Description:
+            This method runs the application by calling the `run()` method of the `console`
+            object. It handles any exceptions that may occur during the execution and logs
+            them using the `logger` object.
         """
         try:
             self.console.run()
