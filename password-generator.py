@@ -1,4 +1,5 @@
 import os
+import sys
 import string
 import secrets
 import platform
@@ -9,10 +10,19 @@ from logging import getLogger
 from logging.config import dictConfig
 from cryptography.fernet import Fernet
 
-# Resizes console window
+# Resizes console window for Windows operating systems
+
 CONSOLE_WIDTH = 143
 CONSOLE_HEIGHT = 20
+
 os.system(f'mode {CONSOLE_WIDTH},{CONSOLE_HEIGHT}')
+
+# Resizes console window for Unix operating systems
+
+rows = 16
+columns = 140
+
+sys.stdout.write("\x1b[8;{rows};{columns}t".format(rows=rows, columns=columns))
 
 # Ensures that files created by this application are created in the file path of the application
 os.path.realpath(os.path.join(os.path.dirname(__file__)))
