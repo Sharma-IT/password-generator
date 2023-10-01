@@ -2,7 +2,7 @@
 
 A Lightweight and easy-to-use CLI Password Generator. This open-source password generator provides a simple yet powerful command-line interface for generating strong and cryptographically randomised passwords for PCs running Windows, Linux and/or macOS. With its focus on performance, security, and usability, this password generator enables anyone to conveniently and quickly create strong passwords whether or not they use a password manager.
 
-# Features
+## Features
 
 - Lightweight and user-friendly CLI
 
@@ -32,7 +32,7 @@ A Lightweight and easy-to-use CLI Password Generator. This open-source password 
 
 - Source code contains plenty of docstrings, is easily readable and editable
 
-# Minimum System Requirements
+## Minimum System Requirements
 
 **NOTE:** Generating passwords less than or equal to the character length of 16 will be done instantly or within a few seconds and will only consume an average of 15 to 20 MB of RAM. Generating passwords over the character length of 16 digits can take over a minute to generate and can use up more than 100 MBs of RAM, though this largerly depends on your PC's specs. For e.g. testing on the M1 chip showed that passwords with character lengths as long as 99999 could be generated under a second.
 
@@ -48,7 +48,7 @@ Memory: 500 MB RAM
 
 Storage: 1 GB (8 MB excl. neccessary OS files)
 
-# Getting Started
+## Getting Started
 
 To edit the .py file, use the package manager pip(3) to install cryptography:
 ```
@@ -63,7 +63,7 @@ To change to the project directory:
 cd password-generator
 ```
 
-# Usage
+## Usage
 
 - Generated passwords are stored into a text file named 'password list.txt' and the generated cryptographic key is named 'password list key.key'. Both can be found in the same file path where the application sits. **Do not rename either files and always keep both of them in the same file path of the application.**
 
@@ -87,14 +87,14 @@ Below is a key for the list of in-built commands and arguments that can be used 
 | h, help |	string | Lists all in-built commands and arguments. |
 | exit |	string | Exits application. |
 
-# Contributing
+## Contributing
 
 Pull requests are welcomed. For major changes, please open an issue first to discuss what you would like to change.
 
-# Contact
+## Contact
 
 Shubham Sharma - [My LinkedIn](https://www.linkedin.com/in/sharma-it/) - shubhamsharma.emails@gmail.com.
 
-# License
+## License
 
 This project is licensed under the GPL 3.0 License - see the [LICENSE](LICENSE) file for details.
