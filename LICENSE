@@ -631,7 +631,9 @@ to attach them to the start of each source file to most effectively
 state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-    Password Generator provides a simple yet powerful command-line interface for generating strong and cryptographically randomised passwords for Windows, Linux and macOS. 
+    Password Generator provides a simple yet powerful command-line interface 
+    for generating strong and cryptographically randomised passwords for 
+    Windows, Linux and macOS. 
     Copyright (C) 2023  Shubham Sharma
 
     This program is free software: you can redistribute it and/or modify
