@@ -69,7 +69,7 @@ BANNER = f'''
 
 HELP_TEXT = '''
 [>] -g [p/k], --gen [p/k]  : generate password/symmetric-cryptographic-key
-    -w [t/k], --wipe [t/k] : wipe text file/symmetric-cryptographic-key
+    -c [t/k], --clear [t/k] : clear text file/symmetric-cryptographic-key
     o                      : open text file
     e                      : encrypt text file
     d                      : decrypt text file
@@ -164,8 +164,8 @@ class Console:
         get_input(): Gets user input from the console.
         generate_password(): Generates a random password.
         generate_key(): Generates a symmetric cryptographic key.
-        wipe_key(): Wipes the symmetric cryptographic key.
-        wipe_text_file(): Wipes the text file.
+        clear_key(): Clears the symmetric cryptographic key.
+        clear_text_file(): Clears the text file.
         open_text_file(): Opens the text file.
         encrypt_text_file(): Encrypts the text file.
         decrypt_text_file(): Decrypts the text file.
@@ -240,7 +240,7 @@ class Console:
         Description:
             This method takes the user input and performs the corresponding action based
             on the input. It calls the appropriate methods to generate a password, generate
-            a key, wipe the text file, open the text file, encrypt the text file, decrypt
+            a key, clear the text file, open the text file, encrypt the text file, decrypt
             the text file, display the list of commands and arguments, or exit the application.
             If the user input is not recognised, it raises a ValueError.
         """
@@ -248,10 +248,10 @@ class Console:
             self.generate_password()
         elif user_input in ['-g k', '--gen k']:
             self.generate_key()
-        elif user_input in ['-w t', '--wipe t']:
-            self.wipe_text_file()
-        elif user_input in ['-w k', '--wipe k']:
-            self.wipe_key()
+        elif user_input in ['-w t', '--clear t']:
+            self.clear_text_file()
+        elif user_input in ['-w k', '--clear k']:
+            self.clear_key()
         elif user_input == 'o':
             self.open_text_file()
         elif user_input == 'e':
@@ -264,8 +264,8 @@ class Console:
             print(BOLD + GREEN + "\n[+] Exiting application...\n")
             raise SystemExit()
         else:
-            logging.error(f"'{user_input}' is not recognized as a command or an argument")
-            raise ValueError(f"'{user_input}' is not recognized as a command or an argument")
+            logging.error(f"'{user_input}' is not recognised as a command or an argument")
+            raise ValueError(f"'{user_input}' is not recognised as a command or an argument")
             
 
     def generate_password(self):
@@ -320,7 +320,7 @@ class Console:
             self.file_helper.write_to_file(self.config['key_file'], key_str)
             print(BOLD + GREEN + "\n[+] Symmetric cryptographic key has successfully been created")
 
-    def wipe_key(self):
+    def clear_key(self):
         """
         Deletes the symmetric cryptographic key.
         
@@ -331,14 +331,14 @@ class Console:
         """
         if self.file_helper.file_exists(self.config['key_file']):
             self.file_helper.remove_file(self.config['key_file'])
-            print(BOLD + GREEN + '\n[+] Key has successfully been wiped')
+            print(BOLD + GREEN + '\n[+] Key has successfully been cleared')
         else:
             logging.error("Cryptographic key does not exist")
             raise ValueError("Cryptographic key does not exist")
 
-    def wipe_text_file(self):
+    def clear_text_file(self):
         """
-        Wipes the text file.
+        clears the text file.
         
         Description:
             This method deletes the text file specified in the configuration.
@@ -347,7 +347,7 @@ class Console:
         """
         if self.file_helper.file_exists(self.config['passwords_file']):
             self.file_helper.remove_file(self.config['passwords_file'])
-            print(BOLD + GREEN + "\n[+] Text file has successfully been wiped")
+            print(BOLD + GREEN + "\n[+] Text file has successfully been cleared")
         else:
             logging.error("Text file does not exist")
             raise ValueError("Text file does not exist")
