@@ -1,6 +1,6 @@
 # Password Generator
 
-A Lightweight and easy-to-use CLI Password Generator. This open-source password generator provides a simple yet powerful command-line interface for generating strong and cryptographically randomised passwords for PCs running Windows, Linux and/or macOS. With its focus on performance, security, and usability, this password generator enables anyone to conveniently and quickly create strong passwords whether or not they use a password manager.
+A Lightweight and easy-to-use CLI Password Generator. This open-source password generator provides a simple yet powerful command-line interface for generating strong and cryptographically randomised passwords for PCs running Windows, Linux and/or macOS. With it's focus on performance, security, and usability, this password generator enables anyone to conveniently and quickly create strong passwords whether or not they use a password manager.
 
 # Table of Contents
 
@@ -46,40 +46,40 @@ A Lightweight and easy-to-use CLI Password Generator. This open-source password 
 
 **NOTE:** Generating passwords less than or equal to the character length of 16 will be done instantly or within a few seconds and will only consume an average of 15 to 20 MB of RAM. Generating passwords over the character length of 16 digits can take over a minute to generate and can use up more than 100 MBs of RAM, though this largerly depends on your PC's specs. For e.g. testing on the M1 chip showed that passwords with character lengths as long as 99999 could be generated under a second.
 
-Processor (CPU): Intel Core Solo
+**Processor (CPU):** Intel Core Solo
 
-Windows Operating System: Microsoft Windows XP
+**Windows Operating System:** Microsoft Windows XP
 
-macOS Operating System: Mac OS X
+**macOS Operating System:** Mac OS X
 
-Linux Operating System: Ubuntu Oneiric Ocelot
+**Linux Operating System:** Ubuntu Oneiric Ocelot
 
-Memory: 500 MB RAM
+**Memory:** 500 MB RAM
 
-Storage: 1 GB (8 MB excl. neccessary OS files)
+**Storage:** 1 GB (or 8 MB excl. neccessary OS files)
 
 ## Getting Started
 
-To edit the .py file, use the package manager pip(3) to install cryptography:
+To modify the `.py` file, use the package manager `pip(3)` to install `cryptography`:
 ```
 (sudo) pip(3) install cryptography
 ```
-To clone the repo:
+To clone this repository:
 ```
 git clone https://github.com/sharma-it/password-generator.git
 ```
-To change to the project directory:
+To change into this repository's directory:
 ```
 cd password-generator
 ```
 
-## Usage
+## Usage Information
 
-- Generated passwords are stored into a text file named 'password list.txt' and the generated cryptographic key is named 'password list key.key'. Both can be found in the same file path where the application sits. **Do not rename either files and always keep both of them in the same file path of the application.**
+- Generated passwords are stored into a text file named `password list.txt` and the generated cryptographic key is named `password list key.key`. Both can be found in the same file path where the application sits. **Do not rename either files and always keep both of them in the same file path of the application.**
 
-- Opening the text file through the application exhibits different behabiours from OS to OS. On MacOS and Linux, the text file can remain open while the applicaiton is running, however you should still manually close the text file before continuing to use the Password Generator. Whereas on Windows, after opening the text file through the application, you cannot continue to use the Password Generator without first closing the text file, that's if you have 'Notepad' set as your default text editor. Using another program or a Windows 10/11 app such as 'Notepads App' can allow the application to run without needing to close the text file, however you should still close the text file before continuing to use the Password Generator.
+- Opening the text file through the application exhibits different behaviours from OS to OS. On MacOS and Linux, the text file can remain open while the applicaiton is running, however you should still manually close the text file before continuing to use `password-generator`. Whereas on Windows, after opening the text file through the script, you cannot continue to use the `password-generator` without first closing the text file, that's if you have 'Notepad' set as your default text editor. Using another program or a Windows 10/11 app such as 'Notepads App' can allow the application to run without needing to close the text file, however you should still close the text file before continuing to use the `password-generator`.
 
-- In order to encrypt and decrypt the text file, you need to generate a cryptographic key which can be done with the commands '-g k' or 'gen k'.
+- In order to encrypt and decrypt the text file, you need to generate a cryptographic key which can be done with the commands `-g k` or `gen k`.
 
 Below is a key for the list of in-built commands and arguments that can be used to make the application perform certain actions.
 
