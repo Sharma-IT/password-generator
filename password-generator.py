@@ -248,9 +248,9 @@ class Console:
             self.generate_password()
         elif user_input in ['-g k', '--gen k']:
             self.generate_key()
-        elif user_input in ['-w t', '--clear t']:
+        elif user_input in ['-c t', '--clear t']:
             self.clear_text_file()
-        elif user_input in ['-w k', '--clear k']:
+        elif user_input in ['-c k', '--clear k']:
             self.clear_key()
         elif user_input == 'o':
             self.open_text_file()
