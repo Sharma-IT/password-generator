@@ -84,7 +84,7 @@ python password-generator.py
 
 ## Usage Information
 
-- The script stores generated passwords into a text file named `password list.txt`, while the cryptographic key is saved as `password list key.key`. Both files are located in the same directory as the script. It's essential not to rename either file and always keep them in the script's directory.
+- The script stores generated passwords into a text file named `passwords.txt`, while the cryptographic key is saved as `passwords.key`. Both files are located in the same directory as the script. It's essential not to rename either file and always keep them in the script's directory.
 
 - Behavior when opening the text file differs across operating systems. On MacOS and Linux, the text file can remain open while the script is running, but it's recommended to manually close it before continuing to use the `password-generator`. However, on Windows, if 'Notepad' is set as your default text editor, you must close the text file before proceeding with the `password-generator`. Alternatively, using another program or a Windows 10 or 11 application like 'Notepads App' can allow the script to run without requiring the text file to be closed, though it's still advisable to do so before using the `password-generator`.
 
