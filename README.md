@@ -98,8 +98,8 @@ Below is a key for the list of in-built commands and arguments that can be used 
 | ----------------- | ---------- | ----------- |
 | -g p, -gen p |	string | Generates password. |
 | -g k, -gen k |	string | Generates cryptographic key. |
-| -w t, -wipe t |	string | Wipes text file. |
-| -w k, -wipe k |	string | Wipes cryptographic key. |
+| -c t, -clear t |	string | Clears text file. |
+| -c k, -clear k |	string | Clears cryptographic key. |
 | o |	string | Opens text file. |
 | e |	string | Encrypts text file. |
 | d |	string | Decrypts text file. |
