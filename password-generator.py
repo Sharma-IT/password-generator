@@ -39,7 +39,7 @@ logging_config = {
     'handlers': {
         'file': {
             'class': 'logging.FileHandler',
-            'filename': 'password_generator_errors.log',
+            'filename': 'password_generator.log',
             'level': 'DEBUG',
             'formatter': 'standard'
         }
@@ -476,7 +476,7 @@ class Main:
     def __init__(self):
         self.config = {
             'passwords_file': 'passwords.txt',
-            'key_file': 'passwords-key.key'
+            'key_file': 'passwords.key'
         }
         self.validate_config()
         self.file_helper = FileHelper(self.config)
