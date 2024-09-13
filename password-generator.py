@@ -6,509 +6,264 @@ import platform
 import subprocess
 import logging
 import logging.config
+import argparse
+import json
+from typing import List, Optional
 from logging import getLogger
 from logging.config import dictConfig
 from cryptography.fernet import Fernet
+from pathlib import Path
+import keyring
+from zxcvbn import zxcvbn
 
-# Resizes console window for Windows operating systems
-
+# Constants
 CONSOLE_WIDTH = 143
 CONSOLE_HEIGHT = 20
+VERSION = '1.3.0'
 
-os.system(f'mode {CONSOLE_WIDTH},{CONSOLE_HEIGHT}')
-
-# Resizes console window for Unix operating systems
-
-rows = 16
-columns = 140
-
-sys.stdout.write("\x1b[8;{rows};{columns}t".format(rows=rows, columns=columns))
-
-# Ensures that files created by this application are created in the file path of the application
-os.path.realpath(os.path.join(os.path.dirname(__file__)))
-
-# Set up logging
-logging_config = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': '%(asctime)s - %(levelname)s - %(message)s\n\n'
-        }
-    },
-    'handlers': {
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': 'password_generator.log',
-            'level': 'DEBUG',
-            'formatter': 'standard'
-        }
-    },
-    'root': {
-        'handlers': ['file'],
-        'level': 'DEBUG'
-    }
-}
-dictConfig(logging_config)
-
-current_os = platform.system()
-get_cwd = (os.getcwd())
-
+# ANSI color codes
 NORMAL = '\033[0m'
 BOLD = '\033[1m'
 RED = '\033[91m'
 GREEN = '\033[92m'
 YELLOW = '\033[93m'
 
-VERSION = '1.2.0'
+# Banner
 BANNER = f'''
- ______  _____  _______ _______ _  _  _  _____   ______  _____       ______  ______ __   _  ______  ______  _____  _______  _____   ______
+ _____   _____  ______  ______  _  _  _  _____   ______  _____       ______  ______ __   _  ______  ______  _____  _______  _____   ______
 |_____] |_____| |_____  |_____  |  |  | |     | |_____/ |     \     |  ____ |______ | \  | |______ |_____/ |_____|    |    |     | |_____/
 |       |     | ______| ______| |__|__| |_____| |    \_ |_____/     |_____| |______ |  \_| |______ |    \_ |     |    |    |_____| |    \_
 '''
 
-HELP_TEXT = '''
-[>] -g [p/k], --gen [p/k]  : generate password/symmetric-cryptographic-key
-    -c [t/k], --clear [t/k] : clear text file/symmetric-cryptographic-key
-    o                      : open text file
-    e                      : encrypt text file
-    d                      : decrypt text file
-    exit                   : exit application
-    h, help                : show list of in-built commands and necessary arguments'''
+class Config:
+    def __init__(self, config_file: str = 'config.json'):
+        self.config_file = config_file
+        self.load_config()
 
-class FileHelper:
-    """
-    A class that provides file-related helper functions.
+    def load_config(self):
+        if not os.path.exists(self.config_file):
+            self.config = {
+                'passwords_file': 'passwords.txt',
+                'key_name': 'password_generator_key',
+                'min_password_length': 8,
+                'max_password_length': 64,
+                'min_password_strength': 3
+            }
+            self.save_config()
+        else:
+            with open(self.config_file, 'r') as f:
+                self.config = json.load(f)
 
-    Args:
-        config (dict): A dictionary containing the configuration settings.
+    def save_config(self):
+        with open(self.config_file, 'w') as f:
+            json.dump(self.config, f, indent=4)
 
-    Attributes:
-        config (dict): A dictionary containing the configuration settings.
+    def __getitem__(self, key):
+        return self.config[key]
 
-    Methods:
-        file_exists(filename): Checks if a file exists.
-        remove_file(filename): Removes a file.
-        write_to_file(filename, content): Writes content to a file.
-        read_from_file(filename): Reads content from a file.
-    """
-    def __init__(self, config):
+class PasswordGenerator:
+    def __init__(self, config: Config):
         self.config = config
 
-    def file_exists(self, filename):
-        """
-        Checks if a file exists.
+    def generate_password(self, length: int) -> str:
+        if length < self.config['min_password_length']:
+            raise ValueError(f"Password length must be at least {self.config['min_password_length']} characters.")
+        if length > self.config['max_password_length']:
+            raise ValueError(f"Password length must not exceed {self.config['max_password_length']} characters.")
 
-        Args:
-            filename (str): The name of the file.
+        password_set = string.ascii_letters + string.digits + string.punctuation
+        while True:
+            password = ''.join(secrets.choice(password_set) for _ in range(length))
+            if self.check_password_strength(password) >= self.config['min_password_strength']:
+                return password
 
-        Returns:
-            bool: True if the file exists, False otherwise.
-        """
+    def generate_passphrase(self, num_words: int) -> str:
+        word_list = Path('words.txt').read_text().splitlines()
+        return ' '.join(secrets.choice(word_list) for _ in range(num_words))
+
+    def check_password_strength(self, password: str) -> int:
+        return zxcvbn(password)['score']
+
+class FileHelper:
+    def __init__(self, config: Config):
+        self.config = config
+
+    def file_exists(self, filename: str) -> bool:
         return os.path.exists(filename)
 
-    def remove_file(self, filename):
-        """
-        Removes a file.
-
-        Args:
-            filename (str): The name of the file.
-        """
+    def remove_file(self, filename: str):
         os.remove(filename)
 
-    def write_to_file(self, filename, content):
-        """
-        Writes content to a file.
-
-        Args:
-            filename (str): The name of the file.
-            content (str): The content to be written to the file.
-        """
+    def write_to_file(self, filename: str, content: str):
         with open(filename, 'a') as file:
             file.write(content)
 
-    def read_from_file(self, filename):
-        """
-        Reads content from a file.
-
-        Args:
-            filename (str): The name of the file.
-
-        Returns:
-            str: The content read from the file.
-
-        Raises:
-            FileNotFoundError: If the file does not exist.
-        """
+    def read_from_file(self, filename: str) -> bytes:
         if not self.file_exists(filename):
             raise FileNotFoundError(f"File '{filename}' does not exist.")
         with open(filename, 'rb') as file:
             return file.read()
 
 class Console:
-    """
-    A class that handles the console interface and user input.
-
-    Args:
-        file_helper (FileHelper): An instance of the FileHelper class.
-        config (dict): A dictionary containing the configuration settings.
-
-    Attributes:
-        file_helper (FileHelper): An instance of the FileHelper class.
-        config (dict): A dictionary containing the configuration settings.
-        show_banner (bool): Indicates whether to display the banner.
-
-    Methods:
-        display_banner(): Displays the application banner.
-        run(): Runs the console interface.
-        get_input(): Gets user input from the console.
-        generate_password(): Generates a random password.
-        generate_key(): Generates a symmetric cryptographic key.
-        clear_key(): Clears the symmetric cryptographic key.
-        clear_text_file(): Clears the text file.
-        open_text_file(): Opens the text file.
-        encrypt_text_file(): Encrypts the text file.
-        decrypt_text_file(): Decrypts the text file.
-        commands_and_arguments(): Displays a list of in-built commands and necessary arguments.
-    """
-    def __init__(self, file_helper, config):
+    def __init__(self, file_helper: FileHelper, config: Config, password_generator: PasswordGenerator):
         self.file_helper = file_helper
         self.config = config
+        self.password_generator = password_generator
         self.show_banner = True
-        self.display_banner()
 
     def display_banner(self):
-        """
-        Displays the application banner.
-        
-        Description:
-            This method prints the application banner to the console if the 'show_banner'
-            attribute is set to True. The banner includes information about the creator (Shubham Sharma),
-            version, and a message to view a list of in-built commands and necessary arguments.
-        """
         if self.show_banner:
-            print(
-                f'{BANNER}\n[>] Created by : Shubham Sharma'
-                + f'\n[>] Version    : {VERSION}'
-                + BOLD
-                + "\n\n[>] Input 'h' or 'help' to view a list of in-built commands and necessary arguments"
-            )
+            print(f'{BANNER}\n[>] Created by : Shubham Sharma\n[>] Version    : {VERSION}\n')
             self.show_banner = False
 
     def run(self):
-        """
-        Runs the console interface.
+        parser = argparse.ArgumentParser()
+        parser.add_argument('-g', '--generate', choices=['p', 'k'], help='Generate password (p) or key (k)')
+        parser.add_argument('-w', '--wipe', choices=['t', 'k'], help='Wipe text file (t) or key (k)')
+        parser.add_argument('-o', '--open', action='store_true', help='Open text file')
+        parser.add_argument('-e', '--encrypt', action='store_true', help='Encrypt text file')
+        parser.add_argument('-d', '--decrypt', action='store_true', help='Decrypt text file')
 
-        Description:
-            This method continuously prompts the user for input, processes the input,
-            and handles any exceptions that may occur during the process. It runs in an
-            infinite loop until the user chooses to exit the application.        
-        """
-        while True:
-            user_input = self.get_input()
-            try:
-                self.process_user_input(user_input)
-            except (ValueError, FileNotFoundError) as e:
-                print(BOLD + RED + f"\n[x] ERROR: {str(e)}" + NORMAL)
-                logging.error(str(e))
-            except Exception as e:
-                print(BOLD + RED + f"\n[x] ERROR: An unexpected error occurred" + NORMAL)
-                logging.exception("Unhandled exception occurred")
+        args = parser.parse_args()
 
-    def get_input(self):
-        """
-        Gets user input from the console.
-
-        Returns:
-            str: The user input.
-            
-        Description:
-            This method prompts the user for input and returns the input as a string.
-        """
-        return input(NORMAL + '\n' + get_cwd + '> ')
-
-    def process_user_input(self, user_input):
-        """
-        Processes the user input.
-
-        Args:
-            user_input (str): The user input.
-
-        Raises:
-            ValueError: If the user input is invalid.
-            
-        Description:
-            This method takes the user input and performs the corresponding action based
-            on the input. It calls the appropriate methods to generate a password, generate
-            a key, clear the text file, open the text file, encrypt the text file, decrypt
-            the text file, display the list of commands and arguments, or exit the application.
-            If the user input is not recognised, it raises a ValueError.
-        """
-        if user_input in ['-g p', '--gen p']:
-            self.generate_password()
-        elif user_input in ['-g k', '--gen k']:
-            self.generate_key()
-        elif user_input in ['-c t', '--clear t']:
-            self.clear_text_file()
-        elif user_input in ['-c k', '--clear k']:
-            self.clear_key()
-        elif user_input == 'o':
+        if args.generate:
+            self.generate(args.generate)
+        elif args.wipe:
+            self.wipe(args.wipe)
+        elif args.open:
             self.open_text_file()
-        elif user_input == 'e':
+        elif args.encrypt:
             self.encrypt_text_file()
-        elif user_input == 'd':
+        elif args.decrypt:
             self.decrypt_text_file()
-        elif user_input in ['h', 'help']:
-            self.commands_and_arguments()
-        elif user_input == 'exit':
-            print(BOLD + GREEN + "\n[+] Exiting application...\n")
-            raise SystemExit()
         else:
-            logging.error(f"'{user_input}' is not recognised as a command or an argument")
-            raise ValueError(f"'{user_input}' is not recognised as a command or an argument")
-            
+            parser.print_help()
+
+    def generate(self, type: str):
+        if type == 'p':
+            self.generate_password()
+        elif type == 'k':
+            self.generate_key()
+
+    def wipe(self, type: str):
+        if type == 't':
+            self.wipe_text_file()
+        elif type == 'k':
+            self.wipe_key()
 
     def generate_password(self):
-        """
-        Generates a random password.
-        
-        Description:
-            This method prompts the user to enter the desired length of the password.
-            It generates a random password of the specified length using a combination
-            of letters, digits, and punctuation. The generated password is then written
-            to the passwords text file specified in the configuration. If the user cancels
-            the password generation, the method returns without generating a password.
-        """
         while True:
+            user_input_length = input(BOLD + f"\n[>] Enter the number of characters for the length of the password (min. {self.config['min_password_length']}), or enter 'cancel' to cancel: " + NORMAL)
+            if user_input_length.lower() == 'cancel':
+                print(BOLD + YELLOW + '\n[-] MSG: Password generation canceled' + NORMAL)
+                return
             try:
-                user_input_length = input(BOLD + "\n[>] Enter the number of characters for the length of the password (min. 8), or enter 'cancel' to cancel: " + NORMAL)
-                if user_input_length.lower() == 'cancel':
-                    print(BOLD + YELLOW + '\n[-] MSG: Password generation canceled' + NORMAL)
-                    return
                 user_input_length = int(user_input_length)
-                if user_input_length < 8:
-                    print(BOLD + RED + '\n[x] ERROR: Invalid password length. Please enter a number larger than or equal to 8' + NORMAL)
-                    continue
-            except ValueError:
-                logging.error(
-                    f"'{user_input_length}' is not a valid numerical value. Please input a valid numerical value"
-                )
-                print(BOLD + RED + '\n[-] ERROR: ' + "'" + user_input_length + "'" + ' is not a valid numerical value. Please input a valid numerical value' + NORMAL)
-                continue
-            else:
-                password_set = string.ascii_letters + string.digits + string.punctuation
-                password = ''.join(secrets.choice(password_set) for _ in range(user_input_length))
+                password = self.password_generator.generate_password(user_input_length)
                 self.file_helper.write_to_file(self.config['passwords_file'], password + '\n\n')
                 print(BOLD + GREEN + '\n[+] Password has been generated successfully')
                 return
+            except ValueError as e:
+                print(BOLD + RED + f'\n[-] ERROR: {str(e)}' + NORMAL)
 
     def generate_key(self):
-        """
-        Generates a symmetric cryptographic key.
-        
-        Description:
-            This method generates a symmetric cryptographic key using the Fernet library.
-            If the key file specified in the configuration already exists, it raises a ValueError.
-            Otherwise, it generates a new key, writes it to the key file, and prints a success message.
-        """
-        if self.file_helper.file_exists(self.config['key_file']):
-            logging.error("Key already exists")
-            raise ValueError("Key already exists")
-        else:
-            key = Fernet.generate_key()
-            key_str = key.decode()  # Convert bytes to string
-            self.file_helper.write_to_file(self.config['key_file'], key_str)
-            print(BOLD + GREEN + "\n[+] Symmetric cryptographic key has successfully been created")
+        key = Fernet.generate_key()
+        keyring.set_password("system", self.config['key_name'], key.decode())
+        print(BOLD + GREEN + "\n[+] Symmetric cryptographic key has successfully been created")
 
-    def clear_key(self):
-        """
-        Deletes the symmetric cryptographic key.
-        
-        Description:
-            This method deletes the symmetric cryptographic key file specified in the configuration.
-            If the key file does not exist, it raises a ValueError. Otherwise, it deletes the file
-            and prints a success message.
-        """
-        if self.file_helper.file_exists(self.config['key_file']):
-            self.file_helper.remove_file(self.config['key_file'])
-            print(BOLD + GREEN + '\n[+] Key has successfully been cleared')
-        else:
-            logging.error("Cryptographic key does not exist")
-            raise ValueError("Cryptographic key does not exist")
+    def wipe_key(self):
+        try:
+            keyring.delete_password("system", self.config['key_name'])
+            print(BOLD + GREEN + '\n[+] Key has successfully been wiped')
+        except keyring.errors.PasswordDeleteError:
+            print(BOLD + RED + '\n[-] ERROR: Cryptographic key does not exist' + NORMAL)
 
-    def clear_text_file(self):
-        """
-        clears the text file.
-        
-        Description:
-            This method deletes the text file specified in the configuration.
-            If the text file does not exist, it raises a ValueError. Otherwise,
-            it deletes the file and prints a success message.
-        """
+    def wipe_text_file(self):
         if self.file_helper.file_exists(self.config['passwords_file']):
             self.file_helper.remove_file(self.config['passwords_file'])
-            print(BOLD + GREEN + "\n[+] Text file has successfully been cleared")
+            print(BOLD + GREEN + "\n[+] Text file has successfully been wiped")
         else:
-            logging.error("Text file does not exist")
-            raise ValueError("Text file does not exist")
+            print(BOLD + RED + "\n[-] ERROR: Text file does not exist" + NORMAL)
 
     def open_text_file(self):
-        """
-        Opens the text file.
-        
-        Description:
-            This method opens the text file specified in the configuration using the
-            appropriate command based on the operating system. If the text file does
-            not exist, it raises a ValueError. After opening the file, it prints a
-            success message with instructions to close the file to continue using
-            the Password Generator.
-        """
         if self.file_helper.file_exists(self.config['passwords_file']):
-            if current_os == "Windows":
+            if platform.system() == "Windows":
                 subprocess.call(["start", self.config['passwords_file']], shell=True)
-                print(
-                    BOLD + GREEN +
-                    "\n[+] Text file successfully opened" +
-                    NORMAL + BOLD +
-                    '\n\n[>] Close the Notepad window or the text editor you are using to continue using the Password Generator')
-            elif current_os == "Darwin":
+            elif platform.system() == "Darwin":
                 subprocess.call(["open", self.config['passwords_file']])
-                print(
-                    BOLD + GREEN +
-                    "\n[+] Text file successfully opened" +
-                    NORMAL + BOLD +
-                    '\n\n[>] Close the window of TextEdit or the text editor you are using to continue using the Password Generator')
-            elif current_os == "Linux":
+            elif platform.system() == "Linux":
                 subprocess.call(["xdg-open", self.config['passwords_file']])
-                print(
-                    BOLD + GREEN +
-                    "\n[+] Text file successfully opened" +
-                    NORMAL + BOLD +
-                    '\n\n[>] Close the window of Gedit or the text editor you are using to continue using the Password Generator')
+            print(BOLD + GREEN + "[+] Text file successfully opened\n" + NORMAL + BOLD)
         else:
-            logging.error("Text file does not exist")
-            raise ValueError("Text file does not exist")
+            print(BOLD + RED + "\n[-] ERROR: Text file does not exist" + NORMAL)
 
     def encrypt_text_file(self):
-        """
-        Encrypts the text file.
-        
-        Description:
-            This method encrypts the text file specified in the configuration using
-            the symmetric cryptographic key. If the key or text file is missing, it
-            raises a ValueError. After encryption, it calls the 'write_encrypted_text_file'
-            method to write the encrypted content to the text file and print a success message.
-        """
-        if self.file_helper.file_exists(self.config['key_file']) and self.file_helper.file_exists(self.config['passwords_file']):
-            key = self.file_helper.read_from_file(self.config['key_file'])
-            if len(key) != 44:
-                logging.error("Invalid encryption key size. The key must be 44 bytes.")
-                raise ValueError("Invalid encryption key size. The key must be 44 bytes.")
-            fernet = Fernet(key)
+        try:
+            key = keyring.get_password("system", self.config['key_name'])
+            if key is None:
+                raise ValueError("Encryption key not found")
+            fernet = Fernet(key.encode())
             original_text_file = self.file_helper.read_from_file(self.config['passwords_file'])
-            original_text_file_bytes = original_text_file # Remove the encode() method call
-            encrypted = fernet.encrypt(original_text_file_bytes)
-            self.write_encrypted_text_file(
-                encrypted, '\n[+] Text file has successfully been encrypted'
-            )
-        else:
-            logging.error("Key and/or text file is missing")
-            raise ValueError("Key and/or text file is missing")
+            encrypted = fernet.encrypt(original_text_file)
+            self.write_encrypted_text_file(encrypted, '\n[+] Text file has successfully been encrypted')
+        except (FileNotFoundError, ValueError) as e:
+            print(BOLD + RED + f"\n[-] ERROR: {str(e)}" + NORMAL)
 
     def decrypt_text_file(self):
-        """
-        Decrypts the text file.
-        
-        Description:
-            This method decrypts the text file specified in the configuration using
-            the symmetric cryptographic key. If the key or text file is missing, it
-            raises a ValueError. After decryption, it calls the 'write_encrypted_text_file'
-            method to write the decrypted content to the text file and print a success message.
-        """
-        if self.file_helper.file_exists(self.config['key_file']) and self.file_helper.file_exists(self.config['passwords_file']):
-            key = self.file_helper.read_from_file(self.config['key_file'])
-            if len(key) != 44:
-                logging.error("Invalid encryption key size. The key must be 44 bytes.")
-                raise ValueError("Invalid encryption key size. The key must be 44 bytes.")
-            fernet = Fernet(key)
+        try:
+            key = keyring.get_password("system", self.config['key_name'])
+            if key is None:
+                raise ValueError("Decryption key not found")
+            fernet = Fernet(key.encode())
             encrypted = self.file_helper.read_from_file(self.config['passwords_file'])
             decrypted = fernet.decrypt(encrypted)
-            self.write_encrypted_text_file(
-                decrypted, '\n[+] Text file has been successfully decrypted'
-            )
-        else:
-            logging.error("Key and/or text file is missing")
-            raise ValueError("Key and/or text file is missing")
+            self.write_encrypted_text_file(decrypted, '\n[+] Text file has been successfully decrypted')
+        except (FileNotFoundError, ValueError) as e:
+            print(BOLD + RED + f"\n[-] ERROR: {str(e)}" + NORMAL)
 
-    def write_encrypted_text_file(self, arg0, arg1):
-        """
-        Writes the encrypted content to the text file and prints a success message.
+    def write_encrypted_text_file(self, content: bytes, message: str):
+        with open(self.config['passwords_file'], 'wb') as file:
+            file.write(content)
+        print(BOLD + GREEN + message)
 
-        Description:
-            This method takes the encrypted content as a byte string and writes it to the text file specified in the
-            configuration. It then prints a success message to indicate that the text file has been successfully encrypted
-            or decrypted.
-        """
-        encrypted_str = arg0.decode()
-        with open(self.config['passwords_file'], 'w') as file:
-            file.write(encrypted_str)
-        print(BOLD + GREEN + arg1)
-
-    def commands_and_arguments(self):
-        """
-        Displays a list of in-built commands and necessary arguments.
-        
-        Description:
-            This method prints a list of in-built commands and their necessary arguments
-            to the console. It provides users with information on how to use the application
-            and its various functionalities.
-        """
-        print(BOLD + HELP_TEXT)
-
-class Main:
-    """
-    The main class that initialises the application.
-
-    Methods:
-        validate_config(): Validates the configuration settings.
-        run(): Runs the application.
-    """
-    def __init__(self):
-        self.config = {
-            'passwords_file': 'passwords.txt',
-            'key_file': 'passwords.key'
+def setup_logging():
+    logging_config = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'standard': {
+                'format': '%(asctime)s - %(levelname)s - %(message)s\n\n'
+            }
+        },
+        'handlers': {
+            'file': {
+                'class': 'logging.FileHandler',
+                'filename': 'password_generator.log',
+                'level': 'DEBUG',
+                'formatter': 'standard'
+            }
+        },
+        'root': {
+            'handlers': ['file'],
+            'level': 'DEBUG'
         }
-        self.validate_config()
-        self.file_helper = FileHelper(self.config)
-        self.console = Console(self.file_helper, self.config)
+    }
+    dictConfig(logging_config)
 
-    def validate_config(self):
-        """
-        Validates the configuration settings.
+def main():
+    setup_logging()
+    logger = getLogger(__name__)
 
-        Raises:
-            ValueError: If any configuration value is not a string.
-        """
-        for key, value in self.config.items():
-            if not isinstance(value, str):
-                logging.error(f"Invalid value '{value}' for config key '{key}'. Must be a string.")
-                raise ValueError(f"Invalid value '{value}' for config key '{key}'. Must be a string.")
-
-    def run(self):
-        """
-        Runs the application.
-        
-        Description:
-            This method runs the application by calling the `run()` method of the `console`
-            object. It handles any exceptions that may occur during the execution and logs
-            them using the `logger` object.
-        """
-        try:
-            self.console.run()
-        except Exception as e:
-            logger = getLogger(__name__)
-            logger.exception("Unhandled exception occurred")
+    try:
+        config = Config()
+        file_helper = FileHelper(config)
+        password_generator = PasswordGenerator(config)
+        console = Console(file_helper, config, password_generator)
+        console.display_banner()
+        console.run()
+    except Exception as e:
+        logger.exception("Unhandled exception occurred")
+        print(BOLD + RED + f"\n[x] ERROR: An unexpected error occurred: {str(e)}" + NORMAL)
 
 if __name__ == "__main__":
-    app = Main()
-    app.run()
+    main()
