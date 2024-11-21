@@ -17,8 +17,6 @@ import keyring
 from zxcvbn import zxcvbn
 
 # Constants
-CONSOLE_WIDTH = 143
-CONSOLE_HEIGHT = 20
 VERSION = '1.3.0'
 
 # ANSI color codes
@@ -34,6 +32,31 @@ BANNER = f'''
 |_____] |_____| |_____  |_____  |  |  | |     | |_____/ |     \     |  ____ |______ | \  | |______ |_____/ |_____|    |    |     | |_____/
 |       |     | ______| ______| |__|__| |_____| |    \_ |_____/     |_____| |______ |  \_| |______ |    \_ |     |    |    |_____| |    \_
 '''
+
+def get_banner_dimensions() -> tuple[int, int]:
+    """Calculate the width and height of the banner."""
+    lines = BANNER.split('\n')
+    width = max(len(line) for line in lines)
+    height = len(lines)
+    return width, height
+
+def resize_terminal():
+    """Resize the terminal window to fit the banner."""
+    width, height = get_banner_dimensions()
+    
+    # Add some padding
+    width += 4  # Add 2 characters of padding on each side
+    height += 4  # Add some vertical space for commands
+    
+    if platform.system() == "Darwin":  # macOS
+        cmd = f"printf '\\e[8;{height};{width}t'"
+        os.system(cmd)
+    elif platform.system() == "Linux":
+        cmd = f"printf '\\e[8;{height};{width}t'"
+        os.system(cmd)
+    elif platform.system() == "Windows":
+        cmd = f"mode con: cols={width} lines={height}"
+        os.system(cmd)
 
 class Config:
     def __init__(self, config_file: str = 'config.json'):
@@ -113,6 +136,7 @@ class Console:
 
     def display_banner(self):
         if self.show_banner:
+            resize_terminal()
             print(f'{BANNER}\n[>] Created by : Shubham Sharma\n[>] Version    : {VERSION}\n')
             self.show_banner = False
 
