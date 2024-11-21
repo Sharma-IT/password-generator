@@ -17,7 +17,7 @@ Lightweight and easy-to-use CLI Password Generator. This password generator prov
 - Lightweight and user-friendly CLI
 - Performs many times faster than GUI-based alternatives
 - Native-OS executable file available for Windows, Linux and macOS
-- Configurable password length (8-64 characters)
+- No maximum password length limit
 - Password strength checking using zxcvbn
 - Uses Python's `secrets` module for cryptographically secure password generation
 - Does not require admin privileges

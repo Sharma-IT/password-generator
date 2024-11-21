@@ -69,7 +69,6 @@ class Config:
                 'passwords_file': 'passwords.txt',
                 'key_name': 'password_generator_key',
                 'min_password_length': 8,
-                'max_password_length': 64,
                 'min_password_strength': 3
             }
             self.save_config()
@@ -91,8 +90,6 @@ class PasswordGenerator:
     def generate_password(self, length: int) -> str:
         if length < self.config['min_password_length']:
             raise ValueError(f"Password length must be at least {self.config['min_password_length']} characters.")
-        if length > self.config['max_password_length']:
-            raise ValueError(f"Password length must not exceed {self.config['max_password_length']} characters.")
 
         password_set = string.ascii_letters + string.digits + string.punctuation
         while True:
