@@ -98,7 +98,8 @@ Pull requests are welcomed. For major changes, please open an issue first to dis
 
 ## Contact
 
-Shubham Sharma - [My LinkedIn](https://www.linkedin.com/in/sharma-it/) - shubhamsharma.emails@gmail.com.
+- [LinkedIn](https://www.linkedin.com/in/sharma-it/)
+- [X](https://x.com/shubsharmatech)
 
 ## License
 
