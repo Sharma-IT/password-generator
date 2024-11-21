@@ -34,14 +34,14 @@ Lightweight and easy-to-use CLI Password Generator. This password generator prov
 
 ## Minimum System Requirements
 
-**NOTE:** Generating passwords with a character length of 16 or less will be instantaneous or take only a few seconds, consuming an average of 15 to 20 MB of RAM. However, generating passwords exceeding 16 characters may take over a minute and utilise more than 100 MB of RAM, though this largely depends on your computer's specifications. For instance, testing on the M1 chip (on macOS) demonstrated that passwords with character lengths as long as 99999 could be generated in under a second.
-
 - **Processor (CPU):** Intel Core Solo
 - **Windows Operating System:** Microsoft Windows XP
 - **macOS Operating System:** Mac OS X
 - **Linux Operating System:** Ubuntu Oneiric Ocelot
 - **Memory:** 500 MB RAM
 - **Storage:** 1 GB (or 8 MB excl. neccessary OS files)
+
+**NOTE:** Generating passwords with a character length of 16 or less will be instantaneous or take only a few seconds for most PCs, consuming an average of 15 to 20 MB of RAM during those seconds. However, generating passwords exceeding 16 characters may take over a minute and utilise more than 100 MB of RAM for a couple of seconds, though this us largely dependant on your PC's specifications. For instance, testing on the M1 MacBook revealed that passwords with character lengths as long as 99999 could be generated in under a second.
 
 ## Dependencies
 
