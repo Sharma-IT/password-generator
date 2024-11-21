@@ -1,6 +1,6 @@
 # Password Generator
 
-A Lightweight and easy-to-use CLI Password Generator. This open-source password generator provides a simple yet powerful command-line interface for generating strong and cryptographically randomised passwords for computer running Windows, Linux or macOS. With it's focus on performance, security, and usability, this password generator enables anyone to conveniently and quickly create strong passwords whether or not they use a password manager.
+Lightweight and easy-to-use CLI Password Generator. This password generator provides a simple yet powerful command-line interface for generating strong and cryptographically randomised passwords for Windows and Linux operating systems. With it's focus on performance, security, and usability, this password generator enables anyone to conveniently and quickly create strong passwords whether or not they use a password manager.
 
 # Table of Contents
 
