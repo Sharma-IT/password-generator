@@ -16,8 +16,7 @@ Lightweight and easy-to-use CLI Password Generator. This password generator prov
 
 - Lightweight and user-friendly CLI
 - Performs many times faster than GUI-based alternatives
-- Native-OS executable file available for Windows, Linux and macOS
-- No maximum password length limit
+- Configurable maximum password length limit and password strength
 - Password strength checking using zxcvbn
 - Uses Python's `secrets` module for cryptographically secure password generation
 - Does not require admin privileges
@@ -41,7 +40,7 @@ Lightweight and easy-to-use CLI Password Generator. This password generator prov
 - **Memory:** 500 MB RAM
 - **Storage:** 1 GB (or 8 MB excl. neccessary OS files)
 
-**NOTE:** Generating passwords with a character length of 16 or less will be instantaneous or take only a few seconds for most PCs, consuming an average of 15 to 20 MB of RAM during those seconds. However, generating passwords exceeding 16 characters may take over a minute and utilise more than 100 MB of RAM for a couple of seconds, though this us largely dependant on your PC's specifications. For instance, testing on the M1 MacBook revealed that passwords with character lengths as long as 99999 could be generated in under a second.
+**NOTE:** Generating passwords with a character length of 16 or less will be instantaneous or take only a few seconds for most PCs, consuming an average of 15 to 20 MB of RAM during that time. However, generating passwords exceeding 16 characters may take over a minute and utilise more than 100 MB of RAM for a couple of seconds, though this is largely dependant on your PC's specifications. For example, testing on an M1 MacBook revealed that passwords with character lengths as long as 99999 could be generated in under a second.
 
 ## Dependencies
 
@@ -76,10 +75,10 @@ passgen -h    # Show help
 The application uses a configuration file (`config.json`) to store settings like:
 - Password file location
 - Minimum and maximum password length (default: 8-64 characters)
-- Minimum required password strength (0-4, default: 3)
+- Minimum required password strength (0 - 4, default: 3)
 - Key storage name
 
-The script stores generated passwords into a text file named `passwords.txt`. The encryption key is securely stored in your system's keyring. Both the password file and configuration are located in the same directory as the script.
+By default, the script stores generated passwords into a text file named `passwords.txt`. The encryption key is securely stored in your system's keyring as `password_generator_key`. All files are stored in the same directory as the script.
 
 ### Command-Line Arguments
 
