@@ -1,5 +1,7 @@
 # Password Generator
 
+![image](https://github.com/user-attachments/assets/4aa74a57-2a3b-41fb-b291-72a03a24c1c1)
+
 Lightweight and easy-to-use CLI password generator. This password generator provides a simple yet powerful command-line interface for generating strong and cryptographically randomised passwords. With it's focus on performance, security, and usability, this password generator enables anyone to conveniently and quickly create strong passwords whether or not they use a password manager.
 
 ## Table of Contents
