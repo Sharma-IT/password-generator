@@ -1,4 +1,4 @@
-password_generator.egg-info/
+*.egg-info/
 password_generator.log
 passwords.txt
 __pycache__
