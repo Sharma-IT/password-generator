@@ -52,21 +52,23 @@ Lightweight and easy-to-use CLI Password Generator. This password generator prov
 
 ## Getting Started
 
-Use the package manager `pip3` to install the required dependencies:
+You can install the package directly from this repository:
 ```sh
-pip3 install cryptography keyring zxcvbn
+pip install git+https://github.com/sharma-it/password-generator.git
 ```
-To clone this repository:
+
+Or clone and install locally:
 ```sh
 git clone https://github.com/sharma-it/password-generator.git
-```
-To change into this repository's directory:
-```sh
 cd password-generator
+pip install -e .
 ```
-To run the script:
+
+After installation, you can use the tool from anywhere by running:
 ```sh
-python password-generator.py
+passgen -g p  # Generate a password
+passgen -g k  # Generate a key
+passgen -h    # Show help
 ```
 
 ## Usage Information

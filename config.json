@@ -1,0 +1,6 @@
+{
+    "passwords_file": "passwords.txt",
+    "key_name": "password_generator_key",
+    "min_password_length": 8,
+    "min_password_strength": 3
+}
