@@ -2,8 +2,8 @@ import os
 from setuptools import setup, find_packages
 
 setup(
-    name="password-generator",
-    version="1.3.0",
+    name="passgen",
+    version="1.4.0",
     packages=find_packages(),
     install_requires=[
         'cryptography',
@@ -15,7 +15,7 @@ setup(
             'passgen=src.password_generator:main',
         ],
     },
-    author="Shubham",
+    author="Shubham Sharma",
     description="A secure password generator with encryption capabilities",
     long_description=open('README.md').read() if os.path.exists('README.md') else '',
     long_description_content_type="text/markdown",

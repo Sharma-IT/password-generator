@@ -17,7 +17,7 @@ import keyring
 from zxcvbn import zxcvbn
 
 # Constants
-VERSION = '1.3.0'
+VERSION = '1.4.0'
 
 # ANSI color codes
 NORMAL = '\033[0m'
