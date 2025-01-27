@@ -8,10 +8,12 @@ Lightweight and easy-to-use CLI password generator. This password generator prov
 
 1. [Features](#features)
 2. [Minimum System Requirements](#minimum-system-requirements)
-3. [Usage](#usage)
-4. [Contributing](#contributing)
-5. [Contact](#contact)
-6. [License](#license)
+3. [Dependencies](#dependencies)
+4. [Getting Started](#getting-started)
+5. [Usage](#usage)
+6. [Contributing](#contributing)
+7. [Contact](#contact)
+8. [License](#license)
 
 ## Features
 
@@ -50,7 +52,7 @@ Lightweight and easy-to-use CLI password generator. This password generator prov
 - [`keyring`](https://pypi.org/project/keyring/) - cross-platform library for secure password and key storage
 - [`zxcvbn`](https://pypi.org/project/zxcvbn/) - realistic password strength estimation
 
-## Usage
+## Getting Started
 
 You can install the package directly from this repository:
 ```sh
@@ -71,7 +73,7 @@ passgen -g k  # Generate a key
 passgen -h    # Show help
 ```
 
-## Usage Information
+## Usage
 
 The application uses a configuration file (`config.json`) to store settings like:
 - Password file location
