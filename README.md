@@ -70,7 +70,7 @@ After installation, you can use the tool from anywhere by running:
 ```sh
 passgen -g p          # Generate a password interactively
 passgen -g p -l 12    # Generate a 12-character password
-passgen -g k          # Generate a encryption key
+passgen -g k          # Generate an encryption key
 passgen -h            # Show help
 ```
 
