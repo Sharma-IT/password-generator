@@ -1,4 +1,4 @@
-# Password Generator
+# `passgen`
 
 ![image](https://github.com/user-attachments/assets/4aa74a57-2a3b-41fb-b291-72a03a24c1c1)
 
@@ -8,11 +8,10 @@ Lightweight and easy-to-use CLI password generator. This password generator prov
 
 1. [Features](#features)
 2. [Minimum System Requirements](#minimum-system-requirements)
-3. [Getting Started](#getting-started)
-4. [Usage](#usage)
-5. [Contributing](#contributing)
-6. [Contact](#contact)
-7. [License](#license)
+3. [Usage](#usage)
+4. [Contributing](#contributing)
+5. [Contact](#contact)
+6. [License](#license)
 
 ## Features
 
@@ -46,12 +45,12 @@ Lightweight and easy-to-use CLI password generator. This password generator prov
 
 ## Dependencies
 
-- [Python](https://www.python.org/) - high-level, general-purpose programming language.
+- [`python`](https://www.python.org/) - high-level, general-purpose programming language.
 - [`cryptography`](https://cryptography.io/en/latest/) -  package which provides cryptographic recipes and primitives to Python developers.
 - [`keyring`](https://pypi.org/project/keyring/) - cross-platform library for secure password and key storage
 - [`zxcvbn`](https://pypi.org/project/zxcvbn/) - realistic password strength estimation
 
-## Getting Started
+## Usage
 
 You can install the package directly from this repository:
 ```sh
