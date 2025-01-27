@@ -140,6 +140,7 @@ class Console:
     def run(self):
         parser = argparse.ArgumentParser()
         parser.add_argument('-g', '--generate', choices=['p', 'k'], help='Generate password (p) or key (k)')
+        parser.add_argument('-l', '--length', type=int, help='Length of the password to generate')
         parser.add_argument('-w', '--wipe', choices=['t', 'k'], help='Wipe text file (t) or key (k)')
         parser.add_argument('-o', '--open', action='store_true', help='Open text file')
         parser.add_argument('-e', '--encrypt', action='store_true', help='Encrypt text file')
@@ -148,7 +149,7 @@ class Console:
         args = parser.parse_args()
 
         if args.generate:
-            self.generate(args.generate)
+            self.generate(args.generate, args.length)
         elif args.wipe:
             self.wipe(args.wipe)
         elif args.open:
@@ -160,9 +161,9 @@ class Console:
         else:
             parser.print_help()
 
-    def generate(self, type: str):
+    def generate(self, type: str, length: Optional[int] = None):
         if type == 'p':
-            self.generate_password()
+            self.generate_password(length)
         elif type == 'k':
             self.generate_key()
 
@@ -172,11 +173,21 @@ class Console:
         elif type == 'k':
             self.wipe_key()
 
-    def generate_password(self):
+    def generate_password(self, length: Optional[int] = None):
+        if length is not None:
+            try:
+                password = self.password_generator.generate_password(length)
+                self.file_helper.write_to_file(self.config['passwords_file'], password + '\n\n')
+                print(BOLD + GREEN + '\n[+] Password has been generated successfully')
+                return
+            except ValueError as e:
+                print(BOLD + RED + f'\n[-] ERROR: {str(e)}' + NORMAL)
+                return
+
         while True:
-            user_input_length = input(BOLD + f"\n[>] Enter the number of characters for the length of the password (min. {self.config['min_password_length']}), or enter 'cancel' to cancel: " + NORMAL)
-            if user_input_length.lower() == 'cancel':
-                print(BOLD + YELLOW + '\n[-] MSG: Password generation canceled' + NORMAL)
+            user_input_length = input(BOLD + f"\n[>] Enter the no. of characters for the length of the password (min. {self.config['min_password_length']}), or enter 'c' to cancel: " + NORMAL)
+            if user_input_length.lower() == 'c':
+                print(BOLD + YELLOW + '\n[-] MSG: Password generation cancelled' + NORMAL)
                 return
             try:
                 user_input_length = int(user_input_length)

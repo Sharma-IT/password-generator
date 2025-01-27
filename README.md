@@ -68,9 +68,10 @@ pip install -e .
 
 After installation, you can use the tool from anywhere by running:
 ```sh
-passgen -g p  # Generate a password
-passgen -g k  # Generate a key
-passgen -h    # Show help
+passgen -g p          # Generate a password interactively
+passgen -g p -l 12    # Generate a 12-character password
+passgen -g k          # Generate a encryption key
+passgen -h            # Show help
 ```
 
 ## Usage
@@ -88,6 +89,7 @@ By default, the script stores generated passwords into a text file named `passwo
 | Argument | Description |
 | -------- | ----------- |
 | -g p, --generate p | Generate a new password |
+| -l N, --length N | Generate password with length N (optional) |
 | -g k, --generate k | Generate new encryption key |
 | -w t, --wipe t | Wipe the passwords file |
 | -w k, --wipe k | Wipe the stored encryption key |
