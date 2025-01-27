@@ -1,5 +1,6 @@
 *.egg-info/
 password_generator.log
 passwords.txt
+password_generator_key
 __pycache__
 config.json
