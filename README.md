@@ -49,8 +49,8 @@ Feature-rich and lightweight CLI password generator. This password generator pro
 
 - [`python`](https://www.python.org/) - high-level, general-purpose programming language.
 - [`cryptography`](https://cryptography.io/en/latest/) -  package which provides cryptographic recipes and primitives to Python developers.
-- [`keyring`](https://pypi.org/project/keyring/) - cross-platform library for secure password and key storage
-- [`zxcvbn`](https://pypi.org/project/zxcvbn/) - realistic password strength estimation
+- [`keyring`](https://pypi.org/project/keyring/) - cross-platform library for secure password and key storage.
+- [`zxcvbn`](https://pypi.org/project/zxcvbn/) - realistic password strength estimation.
 
 ## Getting Started
 
